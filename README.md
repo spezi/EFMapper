@@ -5,3 +5,5 @@ We are tired to have any license Issues by using commercial mapping software or 
 So the EFMapper is born.
 
 EFMapper will be build on base of openframeworks and will have some API or bindings for python. Also it have to be easaly extend with ne features and understand common Protocolls such as DMX, OSC or Midi.
+
+And the most important thing .. It will be OpenSource !! Now and Forever !!
