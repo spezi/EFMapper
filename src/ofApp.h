@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 #include "GuiApp.h"
-#include "ofxPiMapper.h"
+//#include "ofxPiMapper.h"
 
 class ofApp : public ofBaseApp{
 
@@ -28,8 +28,9 @@ public:
 
     bool  	bFullscreen;
 
+
     // This is our mapper object.
-    ofxPiMapper mapper;
+    //ofxPiMapper mapper;
 };
 
 

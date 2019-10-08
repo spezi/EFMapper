@@ -21,7 +21,9 @@ int main( ){
 
     shared_ptr<ofApp> mainApp(new ofApp);
     shared_ptr<GuiApp> guiApp(new GuiApp);
+
     mainApp->gui = guiApp;
+    mainApp->datagui = guiApp;
 
     ofRunApp(guiWindow, guiApp);
     ofRunApp(mainWindow, mainApp);

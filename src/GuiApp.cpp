@@ -13,18 +13,34 @@ void GuiApp::setup(){
 	parameters.add(color.set("color",100,ofColor(0,0),255));
 	gui.setup(parameters);
 	ofBackground(0);
-    ofSetVerticalSync(false);
+    ofSetVerticalSync(true);
 
     datagui->addFRM();
+    datagui->addToggle("Crosshair");
     datagui->addSlider(radius);
-    datagui->addColorPicker("color", color);
+    //datagui->addColorPicker("color", color);
     datagui->addButton("Click!");
 
+    datagui->onToggleEvent(this, &GuiApp::onToggleEvent);
     datagui->onColorPickerEvent(this, &GuiApp::onColorPickerEvent);
 }
 
 void GuiApp::update(){
 
+}
+
+void GuiApp::onToggleEvent(ofxDatGuiToggleEvent e)
+{
+    //cout << "onSliderEvent: " << e.target->getLabel() << " " << endl;
+
+    if(e.checked){
+      cout << "bumms: " << e.checked << " " << endl;
+      crosshair = true;
+    } else {
+      crosshair = false;
+    }
+
+    //if (e.target->is("datgui opacity")) gui->setOpacity(e.scale);
 }
 
 void GuiApp::onSliderEvent(ofxDatGuiSliderEvent e)
@@ -39,6 +55,12 @@ void GuiApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)
     //ofSetBackgroundColor(e.color);
     color = e.color;
 }
+
+//--------------------------------------------------------------
+void GuiApp::mouseMoved(int x, int y ){
+    ofShowCursor();
+}
+
 
 void GuiApp::draw(){
 	gui.draw();

@@ -9,23 +9,29 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
     ofBackground(0);
     ofSetCircleResolution(200);
-
-    mapper.setup();
+    ofHideCursor();
+    //mapper.setup();
 
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    mapper.update();
+    //mapper.update();
+
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    //ofSetColor(gui->color);
+    ofSetColor(gui->color);
     //ofDrawCircle(ofGetWidth()*0.5,ofGetWidth()*0.5,gui->radius);
-    //ofSetColor(255);
+    ofSetColor(255);
     ofDrawBitmapString(ofGetFrameRate(),20,20);
-    mapper.draw();
+    //mapper.draw();
+    if(datagui->crosshair){
+        ofDrawLine(0, ofGetMouseY(), ofGetWidth() , ofGetMouseY());
+        ofDrawLine(ofGetMouseX(), 0, ofGetMouseX(), ofGetHeight());
+    }
+    //std::printf("value: %f\n", double());
 
 }
 
@@ -47,12 +53,12 @@ void ofApp::keyPressed(int key){
         }
     }
 
-    mapper.keyPressed(key);
+    //mapper.keyPressed(key);
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-    mapper.keyReleased(key);
+    //mapper.keyReleased(key);
 }
 
 //--------------------------------------------------------------
@@ -62,17 +68,17 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-    mapper.mouseDragged(x, y, button);
+    //mapper.mouseDragged(x, y, button);
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-    mapper.mousePressed(x, y, button);
+    //mapper.mousePressed(x, y, button);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-    mapper.mouseReleased(x, y, button);
+    //mapper.mouseReleased(x, y, button);
 }
 
 //--------------------------------------------------------------

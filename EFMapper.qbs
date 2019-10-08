@@ -22,7 +22,6 @@ Project{
         of.addons: [
             'ofxGui',
             'ofxDatGui',
-            'ofxPiMapper',
         ]
 
         // additional flags for the project. the of module sets some
