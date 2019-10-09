@@ -28,6 +28,15 @@ public:
 
     bool  	bFullscreen;
 
+    ofPolyline line;
+    ofPath path;
+    float pct;
+
+    ofNode baseNode;
+    ofNode childNode;
+    ofNode grandChildNode;
+
+    ofEasyCam cam;
 
     // This is our mapper object.
     //ofxPiMapper mapper;
