@@ -17,12 +17,15 @@ void GuiApp::setup(){
 
     datagui->addFRM();
     datagui->addToggle("Crosshair");
+    datagui->addToggle("Wiggle");
     datagui->addSlider(radius);
     //datagui->addColorPicker("color", color);
     datagui->addButton("Click!");
 
     datagui->onToggleEvent(this, &GuiApp::onToggleEvent);
     datagui->onColorPickerEvent(this, &GuiApp::onColorPickerEvent);
+
+    wiggle = false;
 }
 
 void GuiApp::update(){
@@ -33,8 +36,16 @@ void GuiApp::onToggleEvent(ofxDatGuiToggleEvent e)
 {
     //cout << "onSliderEvent: " << e.target->getLabel() << " " << endl;
 
-    if(e.checked){
-      cout << "bumms: " << e.checked << " " << endl;
+    if((e.checked) && (e.target->getLabel() == "Wiggle")) {
+      cout << "bumms: " << e.target->getLabel() << " " << endl;
+      wiggle = true;
+    } else {
+      wiggle = false;
+    }
+
+
+    if((e.checked) && (e.target->getLabel() == "Crosshair")) {
+      cout << "bumms: " << e.target->getLabel() << " " << endl;
       crosshair = true;
     } else {
       crosshair = false;

@@ -4,6 +4,7 @@
 #include "ofxGui.h"
 #include "ofxDatGui.h"
 
+
 class GuiApp: public ofBaseApp {
 public:
 	void setup();
@@ -13,8 +14,10 @@ public:
 	ofParameterGroup parameters;
 	ofParameter<float> radius;
     ofParameter<bool> crosshair;
+    ofParameter<bool> wiggle;
 	ofParameter<ofColor> color;
 	ofxPanel gui;
+
     ofxDatGui* datagui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
 
     //void onButtonEvent(ofxDatGuiButtonEvent e);
