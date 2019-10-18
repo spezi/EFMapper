@@ -18,7 +18,7 @@ public:
     void mousePressed(int x, int y, int button);
     void mouseReleased(int x, int y, int button);
     ofPath polysToPath(ofPolyline polylines);
-    void nearestVertex();
+    void nearestVertex(ofPolyline line);
     void mouseEntered(int x, int y);
     void mouseExited(int x, int y);
     void windowResized(int w, int h);
@@ -30,10 +30,14 @@ public:
 
     bool  	bFullscreen;
     bool  	bpaining;
+    bool    bpainted;
 
     ofPolyline line;
     ofPath path;
     float pct;
+
+    int nearestIndex;
+    float distance;
 
     ofNode baseNode;
     ofNode childNode;

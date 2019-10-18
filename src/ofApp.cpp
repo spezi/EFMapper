@@ -25,7 +25,8 @@ void ofApp::setup(){
         path.setFillColor(ofColor::white);
         path.setFilled(true);
         path.setStrokeWidth(2);
-
+        bpainted = true;
+    int nearestIndex = 0;
 }
 
 //--------------------------------------------------------------
@@ -62,17 +63,8 @@ void ofApp::update(){
                 pct = 0;
             }
 
-            for (int i = 0; i < line.getVertices().size(); i++){
-                if ( i == 0 ) {
-                    path.moveTo(line.getVertices()[i].x,line.getVertices()[i].y);
-                    cout << "poli: " <<  line.getVertices()[i].x << " " << endl;
-                } else if ( i == line.getVertices().size()){
-                      path.close();
-                }else {
-                    path.lineTo(line.getVertices()[i].x,line.getVertices()[i].y);
-                    cout << "poli2: " <<  line.getVertices()[i].x << " " << endl;
-                }
-            }
+
+
 }
 
 //--------------------------------------------------------------
@@ -93,8 +85,7 @@ void ofApp::draw(){
     //line.draw();
 
       //cam.begin();
-      //uncomment these 3 lines to understand how nodes are moving
-      //baseNode.draw();
+      //uncomment these 3 lines to understand how nodes are movingv
       //childNode.draw();
       //grandChildNode.draw();
     //line.draw();
@@ -141,12 +132,60 @@ void ofApp::draw(){
 
         //cout << "vertex: " << vertices.data() << " " << endl;
 
-        //kreise an den verticies
+        //kreise an den verticiesbpaining
         for (int vertexIndex=0; vertexIndex<vertices.size(); vertexIndex++) {
             auto vertex = vertices[vertexIndex];
             ofDrawCircle(vertex, 10);
-            cout << "vertex: " <<  vertex << " " << endl;
+            //cout << "vertex: " <<  vertex << " " << endl;
         }
+
+        if(line.hasChanged()){
+            path.clear();
+            bpainted = false;
+        }
+
+        if(!bpainted) {
+            for (int i = 0; i < line.getVertices().size(); i++){
+                if ( i == 0 ) {
+                    path.moveTo(line.getVertices()[i].x,line.getVertices()[i].y);
+                    cout << "poli: " <<  line.getVertices()[i].x << " " << endl;
+                } else if ( i == line.getVertices().size()){
+                      path.close();
+                }else {
+                    path.lineTo(line.getVertices()[i].x,line.getVertices()[i].y);
+                    cout << "poli2: " <<  line.getVertices()[i].x << " " << endl;
+                }
+                bpainted = true;
+            }
+       }
+
+        // gt closest vertex
+
+        int n = line.size();
+        glm::vec2  nearestVertex;
+        float nearestDistance = 0;
+        glm::vec3  mouse(ofGetMouseX(), ofGetMouseY(), 0);
+        //cout << "closest: " << line.getClosestPoint(mouse) << endl;
+
+        for(int i = 0; i < n; i++) {
+            //glm::vec3 cur = cam.worldToScreen(mesh.getVertex(i));
+            glm::vec3 cur = line.getVertices()[i];
+            distance = glm::distance(mouse, cur);
+            //cout << "distance: " <<  distance << " " << endl;
+            if(i == 0 || distance < nearestDistance) {
+                nearestDistance = distance;
+                nearestVertex = cur;
+                nearestIndex = i;
+            }
+        }
+
+        ofSetColor(ofColor::gray);
+        ofDrawLine(nearestVertex, mouse);
+
+
+        ofSetColor(ofColor::blueSteel);
+        ofNoFill();
+        ofDrawCircle(nearestVertex, 10);
 
 
 }
@@ -169,16 +208,15 @@ ofPath ofApp::polysToPath(ofPolyline polylines) {
 }
 
 //--------------------------------------------------------------
-void ofApp::nearestVertex(){
+void ofApp::nearestVertex(ofPolyline line){
 
         // nearest naighbor detection
         int n = line.size();
         float nearestDistance = 0;
         glm::vec2  nearestVertex;
-        int nearestIndex = 0;
         glm::vec3  mouse(ofGetMouseX(), ofGetMouseY(), 0);
 
-            //cout << "mouse: " << mouse << endl;
+            cout << "mouse: " << mouse << endl;
             //cout << "mouse2: " << path.getOutline().back().getClosestPoint(mouse) << endl;
 
         for(int i = 0; i < n; i++) {
@@ -227,6 +265,8 @@ void ofApp::keyPressed(int key){
         path.clear();
     } else if (key == 'p') {
         bpaining = !bpaining;
+    } else if (key == 'v') {
+        bpainted = false;
     }
 
 
@@ -246,7 +286,18 @@ void ofApp::mouseMoved(int x, int y ){
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
     //mapper.mouseDragged(x, y, button);
-    path.getCommands().back().to = (ofPoint(x,y));
+    //path.getCommands().back().to = (ofPoint(x,y));
+    cout << "nearest index: " <<  nearestIndex << " " << endl;
+    //cout << "index distance: " <<  distance << " " << endl;
+    glm::vec3  mouse(x, y, 0);
+    float nearest_distance = glm::distance(mouse, line.getVertices()[nearestIndex]);
+    cout << "index distance: " <<  nearest_distance << " " << endl;
+
+    if (nearest_distance < 10 ) {
+        line.getVertices()[nearestIndex].x = x;
+        line.getVertices()[nearestIndex].y = y;
+    }
+
 
 }
 
@@ -263,7 +314,7 @@ void ofApp::mousePressed(int x, int y, int button){
         pt.y = y;
         pt.z = 0;
         line.addVertex(pt);
-        path.lineTo(x,y);
+        //path.lineTo(x,y);
     }
 
 }

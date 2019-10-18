@@ -13,7 +13,7 @@ void GuiApp::setup(){
 	parameters.add(color.set("color",100,ofColor(0,0),255));
 	gui.setup(parameters);
 	ofBackground(0);
-    ofSetVerticalSync(true);
+    ofSetVerticalSync(false);
 
     datagui->addFRM();
     datagui->addToggle("Crosshair");
